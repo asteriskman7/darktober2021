@@ -143,6 +143,11 @@ TODO:
           this.draw(this.ctx, this.canvas.width, this.canvas.height, this.t, this.mousePoint);
           this.ctx.restore();
         }
+        rnd(seed) {
+          //return a value in [0,1)
+          const x = Math.sin(seed++) * 10000;
+          return x - Math.floor(x);
+        }
       }
     </script>
 
