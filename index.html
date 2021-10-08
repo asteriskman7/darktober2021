@@ -126,6 +126,7 @@ TODO:
           this.ctx = this.canvas.getContext('2d');
           this.desc = '-';
           this.mousePoint = app.mousePoint;
+          this.keys = app.keys;
         }
 
         load() {
@@ -195,11 +196,14 @@ TODO:
           this.sketches = [];
           this.paused = false;
           this.mousePoint = { x: 0, y: 0, u: 0, v: 0 };
+          this.keys = {};
 
           this.canvas = document.getElementById('cmain');
           document.getElementById('buttonPause').onclick = () => this.pause();
           document.getElementById('buttonReset').onclick = () => this.reset();
           this.canvas.onmousemove = (e) => this.mouseMove(e);
+          document.onkeydown = (e) => this.keydown(e);
+          document.onkeyup = (e) => this.keyup(e);
 
           this.sketchLoadsRemaining = 32; //31 sketches and the 0th sketch
 
@@ -334,6 +338,14 @@ TODO:
           this.mousePoint.y = Math.max(0, e.clientY - rect.top);
           this.mousePoint.u = this.mousePoint.x / this.canvas.width;
           this.mousePoint.v = this.mousePoint.y / this.canvas.height;
+        }
+
+        keydown(e) {
+          this.keys[e.key] = true;
+        }
+
+        keyup(e) {
+          delete this.keys[e.key];
         }
 
         loadSketch(n) {
